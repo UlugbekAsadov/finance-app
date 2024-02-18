@@ -42,11 +42,10 @@
     ]
   },
   "devDependencies": {
-    "prettier": "^3.2.5",
     "eslint": "^8.40.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-import-resolver-typescript": "^3.5.5",
     "eslint-plugin-prettier": "^4.2.1",
-    "postcss": "^8.4.31"
+    "prettier": "^3.2.5"
   }
 }
