@@ -1,0 +1,53 @@
+.button {
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+  transition: 0.3s;
+}
+
+.button.sm {
+  padding: 8px 16px;
+}
+
+.button.md {
+  padding: 12px 20px;
+}
+
+.button.lg {
+  padding: 16px 32px;
+}
+
+.button.outline {
+  border: solid 1px var(--green);
+  color: var(--green-light);
+  background-color: transparent;
+}
+
+.button.outline:hover {
+  color: var(--white);
+  background-color: var(--green);
+}
+
+.button.solid {
+  color: var(--white);
+  background-color: var(--green);
+}
+
+.button.solid:hover {
+  background-color: var(--green-light);
+}
+
+.button.disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
+.button.danger {
+  background-color: var(--red-dark);
+  color: white;
+}
+
+.button.danger:hover {
+  background-color: var(--red);
+}
