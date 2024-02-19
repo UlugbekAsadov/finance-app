@@ -1,5 +1,4 @@
-/* Modal Overlay */
-.modal-overlay {
+.modal__overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -9,13 +8,47 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: modal-overlay-opening 0.3s;
 }
 
 .modal {
-  background-color: var(--background-gray);
+  background-color: var(--primary-gray);
   border-radius: 0.4rem;
   padding: 3rem;
   box-shadow: 0 0 0.7rem var(--modal-shadow);
   max-width: 33.4rem;
   width: 100%;
+  position: relative;
+  animation: modal-opening 0.3s;
+}
+
+.modal__close {
+  position: absolute;
+  top: 15%;
+  right: 5%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.modal__close path {
+  fill: var(--gray-icon);
+}
+
+@keyframes modal-opening {
+  from {
+    scale: 0.9;
+  }
+  to {
+    scale: 1;
+  }
+}
+
+@keyframes modal-overlay-opening {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100%;
+  }
 }

@@ -17,18 +17,18 @@ export const Modal = ({ children, id }: IProps) => {
 
   return (
     <div
-      className="modal-overlay"
+      className="modal__overlay"
       data-testid="modal-overlay"
       onClick={closeModal.bind(null, { id })}
     >
       <div className="modal" onClick={handleInsideClick}>
         <div className="modal-content">{children}</div>
         <button
-          className="modal-close"
+          className="modal__close"
           data-testid="modal-close-button"
           onClick={closeModal.bind(null, { id })}
         >
-          <XIcon />
+          <XIcon width={24} />
         </button>
       </div>
     </div>
