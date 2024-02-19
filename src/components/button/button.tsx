@@ -1,7 +1,7 @@
 import "./button.css";
-import { forwardRef, HTMLAttributes, ReactNode } from "react";
+import { ButtonHTMLAttributes, forwardRef, ReactNode } from "react";
 
-interface IProps extends HTMLAttributes<HTMLButtonElement> {
+interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   variant?: "solid" | "outline" | "disabled" | "danger";
   size?: "sm" | "md" | "lg";

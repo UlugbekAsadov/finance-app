@@ -3,6 +3,7 @@ import { render, fireEvent } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Header } from "./header";
 import { useModalContext } from "../../context/modal-context/modal.context";
+import { TransactionActions } from "./transaction-actions/transaction-actions";
 
 jest.mock("../../context/modal-context/modal.context", () => ({
   useModalContext: jest.fn(),
@@ -35,6 +36,9 @@ describe("Header Component", () => {
     const newTransactionButton = getByText("New transaction");
     fireEvent.click(newTransactionButton);
 
-    expect(mockOpenModal).toHaveBeenCalledWith({ id: "new-transaction", component: <>hello</> });
+    expect(mockOpenModal).toHaveBeenCalledWith({
+      id: "new-transaction",
+      component: <TransactionActions />,
+    });
   });
 });

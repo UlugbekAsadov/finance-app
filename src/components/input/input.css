@@ -5,6 +5,12 @@
   border-radius: 0.4rem;
   overflow: hidden;
   background-color: var(--background-gray);
+  border: 1px solid var(--primary-gray);
+  transition: 0.4s;
+}
+
+.input__wrapper:focus-within {
+  border: 1px solid var(--green-light);
 }
 
 .input__wrapper svg {

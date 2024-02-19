@@ -2,13 +2,14 @@ import { ReactComponent as Logo } from "../../assets/icons/logo.svg";
 import { Button } from "../button/button";
 import { Link } from "react-router-dom";
 import { useModalContext } from "../../context/modal-context/modal.context";
+import { TransactionActions } from "./transaction-actions/transaction-actions";
 
 import "./header.css";
 export const Header = () => {
   const { openModal } = useModalContext();
 
   const openNewTransactionModal = () => {
-    openModal({ id: "new-transaction", component: <>hello</> });
+    openModal({ id: "new-transaction", component: <TransactionActions /> });
   };
 
   return (
