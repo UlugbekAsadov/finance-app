@@ -4,6 +4,7 @@
   font-weight: bold;
   border: none;
   transition: 0.3s;
+  font-size: 1rem;
 }
 
 .button.sm {
