@@ -1,0 +1,29 @@
+.input__wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-radius: 0.4rem;
+  overflow: hidden;
+  background-color: var(--background-gray);
+}
+
+.input__wrapper svg {
+  margin-left: 1rem;
+}
+
+.input__wrapper path {
+  fill: var(--gray-icon);
+}
+
+.input {
+  color: var(--white);
+  background-color: transparent;
+  outline: none;
+  border: none;
+  flex-grow: 1;
+  padding: 1rem;
+}
+
+.input::placeholder {
+  color: var(--placeholder);
+}
