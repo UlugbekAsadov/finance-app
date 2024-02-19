@@ -1,0 +1,71 @@
+.transaction__actions-title {
+  font-size: 1.5rem;
+  color: var(--white);
+}
+
+.transaction__actions-form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  margin-top: 2rem;
+}
+
+.transaction__actions-form-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.transaction__actions-form-action {
+  background-color: var(--secondary-gray);
+  border-radius: 0.4rem;
+  padding: 1rem;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.transaction__actions-form-action p {
+  color: var(--white);
+}
+
+.transaction__actions-form-action.outcome.active {
+  background-color: var(--green-light);
+}
+
+.transaction__actions-form-action.income.active {
+  background-color: var(--red);
+}
+
+.transaction__actions-form-action.active path {
+  transition: 0.4s;
+  fill: var(--white);
+}
+
+.transaction__actions-form-button {
+  margin-top: 1.6rem;
+}
+
+@media (max-width: 768px) {
+  .transaction__actions-title {
+    font-size: 1.3rem;
+  }
+
+  .transaction__actions-form {
+    margin-top: 1.6rem;
+  }
+
+  .transaction__actions-form-action {
+    padding: 0.8rem;
+  }
+}
+
+@media (max-width: 425px) {
+  .transaction__actions-form-button {
+    margin-top: 1rem;
+  }
+}
