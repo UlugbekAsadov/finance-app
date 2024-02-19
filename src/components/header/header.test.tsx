@@ -11,7 +11,6 @@ jest.mock("../../context/modal-context/modal.context", () => ({
 
 describe("Header Component", () => {
   test("renders header component", () => {
-    // Mocking the openModal function
     (useModalContext as any).mockReturnValue({ openModal: jest.fn() });
 
     const { getByTestId } = render(
