@@ -1,0 +1,15 @@
+:root {
+  --green-dark: "#015F43";
+  --green: "#00875F";
+  --green-light: "#00B37E";
+  --red-dark: "#AA2834";
+  --red: "#F75A68";
+  --background-gray: "#121214";
+  --primary-gray: "#202024";
+  --secondary-gray: "#29292E";
+  --thirdly-gray: "#323238";
+  --placeholder: "#7C7C8A";
+  --base-text: "#C4C4CC";
+  --title: "#E1E1E6";
+  --white: "#FFFFFF";
+}
