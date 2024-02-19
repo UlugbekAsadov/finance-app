@@ -12,4 +12,6 @@
   --base-text: #c4c4cc;
   --title: #e1e1e6;
   --white: #ffffff;
+  --modal-overlay: rgba(0, 0, 0, 0.5);
+  --modal-shadow: rgba(0, 0, 0, 0.3);
 }
