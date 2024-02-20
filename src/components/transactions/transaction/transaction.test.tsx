@@ -1,49 +1,53 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { Transaction } from "./transaction";
-import { ITransactionResponse } from "../../../utils/interfaces/transaction-actions.interface";
 import { ETransactionActions } from "../../../utils/enums/transaction-actions.enum";
 
-describe("Transaction Component", () => {
-  test("renders transaction details for income", () => {
-    const transaction: ITransactionResponse = {
-      id: 1,
-      title: "Salary",
-      timestamp: 1708419643728,
-      price: "2000",
-      action: ETransactionActions.Income,
-      comment: "comment",
-    };
+describe("Transaction", () => {
+  const mockTransaction = {
+    id: "1",
+    title: "Sample Transaction",
+    timestamp: 1645237000000,
+    price: "100",
+    action: ETransactionActions.Income,
+    comment: "Sample Comment",
+  };
 
-    const { getByText } = render(<Transaction {...transaction} />);
-    const titleElement = getByText("Salary");
-    const priceElement = getByText("+2,000 UZS");
-    const dateElement = getByText("20/02/2024");
+  test("renders transaction with income action", () => {
+    render(<Transaction {...mockTransaction} />);
 
-    expect(titleElement).toBeInTheDocument();
-    expect(priceElement).toBeInTheDocument();
-    expect(dateElement).toBeInTheDocument();
-    expect(priceElement).toHaveClass("income");
+    const transactionTitle = screen.getByText("Sample Transaction");
+    expect(transactionTitle).toBeInTheDocument();
+
+    const transactionComment = screen.getByText("Sample Comment");
+    expect(transactionComment).toBeInTheDocument();
+
+    const transactionPrice = screen.getByText("+100 $");
+    expect(transactionPrice).toBeInTheDocument();
+
+    const transactionDate = screen.getByText("19/02/2022"); // Adjust with your date format
+    expect(transactionDate).toBeInTheDocument();
   });
 
-  test("renders transaction details for outcome", () => {
-    const transaction: ITransactionResponse = {
-      id: 2,
-      title: "Groceries",
-      timestamp: 1708419643728,
-      price: "50",
+  test("renders transaction with outcome action", () => {
+    const mockOutcomeTransaction = {
+      ...mockTransaction,
       action: ETransactionActions.Outcome,
-      comment: "comment",
+      price: "50", // Adjust the price for outcome transaction
     };
 
-    const { getByText } = render(<Transaction {...transaction} />);
-    const titleElement = getByText("Groceries");
-    const priceElement = getByText("-50 UZS");
-    const dateElement = getByText("20/02/2024");
+    render(<Transaction {...mockOutcomeTransaction} />);
 
-    expect(titleElement).toBeInTheDocument();
-    expect(priceElement).toBeInTheDocument();
-    expect(dateElement).toBeInTheDocument();
-    expect(priceElement).toHaveClass("outcome");
+    const transactionTitle = screen.getByText("Sample Transaction");
+    expect(transactionTitle).toBeInTheDocument();
+
+    const transactionComment = screen.getByText("Sample Comment");
+    expect(transactionComment).toBeInTheDocument();
+
+    const transactionPrice = screen.getByText("-50 $");
+    expect(transactionPrice).toBeInTheDocument();
+
+    const transactionDate = screen.getByText("19/02/2022"); // Adjust with your date format
+    expect(transactionDate).toBeInTheDocument();
   });
 });

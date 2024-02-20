@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2.4rem 1rem 7.6rem;
+  padding: 2.4rem 1rem 7.6rem !important;
 }
 
 .header__logo {

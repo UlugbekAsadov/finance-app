@@ -12,11 +12,11 @@ export interface ITransactionFormRequest extends ITransactionForm {
 }
 
 export interface ITransactionResponse extends ITransactionForm {
-  id: number;
+  id: string;
   timestamp: number;
 }
 
-export interface ITransactionStatus {
-  income: string;
-  outcome: string;
+export interface ITransactionData {
+  income: number;
+  outcome: number;
 }

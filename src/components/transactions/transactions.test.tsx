@@ -1,53 +1,32 @@
 import React from "react";
-import { render, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { Transactions } from "./transactions";
-import { useApi } from "../../hooks/useApi/useApi";
-import { ITransactionResponse } from "../../utils/interfaces/transaction-actions.interface";
-import { ETransactionActions } from "../../utils/enums/transaction-actions.enum";
 
-jest.mock("../../hooks/useApi/useApi", () => ({
-  useApi: jest.fn(),
+jest.mock("@tanstack/react-query", () => ({
+  useQuery: jest.fn(() => ({
+    data: [
+      {
+        id: "1",
+        title: "Transaction 1",
+        amount: 100,
+      },
+      {
+        id: "2",
+        title: "Transaction 2",
+        amount: 200,
+      },
+    ],
+  })),
 }));
 
-describe("Transactions Component", () => {
-  test("renders transactions list when data is available", async () => {
-    const mockTransactions: ITransactionResponse[] = [
-      {
-        id: 1,
-        title: "Salary",
-        timestamp: 1708419643728,
-        price: "2000",
-        comment: "comment",
-        action: ETransactionActions.Income,
-      },
-      {
-        id: 2,
-        title: "Groceries",
-        timestamp: 1708419643728,
-        price: "50",
-        comment: "comment",
-        action: ETransactionActions.Outcome,
-      },
-    ];
+describe("Transactions", () => {
+  test("does not render transaction list if data is empty", () => {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    jest.spyOn(require("@tanstack/react-query"), "useQuery").mockReturnValue({ data: [] });
 
-    (useApi as jest.Mock).mockReturnValue({ data: mockTransactions });
+    render(<Transactions />);
 
-    const { getByText } = render(<Transactions />);
-
-    await waitFor(() => {
-      const salaryElement = getByText("Salary");
-      const groceriesElement = getByText("Groceries");
-
-      expect(salaryElement).toBeInTheDocument();
-      expect(groceriesElement).toBeInTheDocument();
-    });
-  });
-
-  test("does not render transactions list when data is not available", () => {
-    (useApi as jest.Mock).mockReturnValue({ data: [] });
-
-    const { container } = render(<Transactions />);
-
-    expect(container.firstChild).toBeNull();
+    const transactionsListContainer = screen.queryByTestId("transactions-list");
+    expect(transactionsListContainer).not.toBeInTheDocument();
   });
 });

@@ -1,16 +1,23 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import {
+  ITransactionData,
   ITransactionForm,
   ITransactionFormRequest,
+  ITransactionResponse,
 } from "../../../utils/interfaces/transaction-actions.interface";
 import { Input } from "../../input/input";
 import { ReactComponent as ChevronUpRoundedIcon } from "../../../assets/icons/chevron-up-rounded.svg";
 import { ReactComponent as ChevronDownRoundedIcon } from "../../../assets/icons/chevron-down-rounded.svg";
 import { ETransactionActions } from "../../../utils/enums/transaction-actions.enum";
 import { Button } from "../../button/button";
-import { getFetchedData, useApi } from "../../../hooks/useApi/useApi";
 
 import "./transaction-actions.css";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import {
+  createTransaction,
+  updateTransactionsDataFn,
+} from "../../../react-query/mutations/transaction.mutation";
+import { useModalContext } from "../../../context/modal-context/modal.context";
 
 const initialTransactionForm: ITransactionForm = {
   title: "",
@@ -22,9 +29,18 @@ const initialTransactionForm: ITransactionForm = {
 export const TransactionActions = () => {
   const [transactionForm, setTransactionForm] = useState<ITransactionForm>(initialTransactionForm);
   const [errors, setErrors] = useState<ITransactionForm>(initialTransactionForm);
-  const data = getFetchedData("data");
-  const { postData: postTransaction } = useApi("transactions", "/transactions");
-  const { putData } = useApi("data", "/data");
+  const createTransactionMutation = useMutation({
+    mutationFn: (data: ITransactionFormRequest) => createTransaction(data),
+  });
+  const updateTransactionData = useMutation({
+    mutationFn: (data: ITransactionData) => updateTransactionsDataFn(data),
+  });
+  const transactionDataQuery = useQuery<ITransactionData>({ queryKey: ["transactions-data"] });
+  const transactions = useQuery<ITransactionResponse[]>({
+    queryKey: ["all-transactions"],
+  });
+  const { closeModal } = useModalContext();
+
   const handleChange = (e: ChangeEvent<HTMLInputElement> | ETransactionActions) => {
     if (typeof e === "string") {
       setTransactionForm((prevState) => ({ ...prevState, action: e }));
@@ -46,19 +62,22 @@ export const TransactionActions = () => {
       timestamp: new Date().getTime(),
     };
 
-    const dashboardData = {
-      income: data.income,
-      outcome: data.outcome,
+    const transactionData: ITransactionData = {
+      income: transactionDataQuery?.data?.income || 0,
+      outcome: transactionDataQuery?.data?.outcome || 0,
     };
 
     if (transactionForm.action === ETransactionActions.Outcome) {
-      dashboardData.outcome += parseInt(transactionForm.price);
+      transactionData.outcome += parseInt(transactionForm.price);
     } else {
-      dashboardData.income += parseInt(transactionForm.price);
+      transactionData.income += parseInt(transactionForm.price);
     }
 
-    await putData(dashboardData);
-    await postTransaction(body);
+    await updateTransactionData.mutateAsync(transactionData);
+    await createTransactionMutation.mutateAsync(body);
+    await transactionDataQuery.refetch();
+    await transactions.refetch();
+    closeModal({ id: "new-transaction" });
   };
 
   const validateForm = (): boolean => {

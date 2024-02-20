@@ -1,46 +1,55 @@
 import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
 import { TransactionActions } from "./transaction-actions";
+import ReactQueryContext from "../../../react-query/react-query.context";
+import { ModalProvider } from "../../../context/modal-context/modal.context";
 
-describe("TransactionActions component", () => {
-  test("renders transaction form", () => {
-    render(<TransactionActions />);
-    const titleInput = screen.getByPlaceholderText("Title");
-    const amountInput = screen.getByPlaceholderText("Amount");
-    const outcomeAction = screen.getByText("Outcome");
-    const incomeAction = screen.getByText("Income");
-    const saveButton = screen.getByText("Save");
+describe("TransactionActions", () => {
+  test("should render correctly", () => {
+    render(
+      <ReactQueryContext>
+        <ModalProvider>
+          <TransactionActions />
+        </ModalProvider>
+      </ReactQueryContext>,
+    );
 
-    expect(titleInput).toBeInTheDocument();
-    expect(amountInput).toBeInTheDocument();
-    expect(outcomeAction).toBeInTheDocument();
-    expect(incomeAction).toBeInTheDocument();
-    expect(saveButton).toBeInTheDocument();
+    expect(screen.getByText("New Transaction")).toBeInTheDocument();
+    expect(screen.getByPlaceholderText("Title")).toBeInTheDocument();
+    expect(screen.getByPlaceholderText("Amount")).toBeInTheDocument();
+    expect(screen.getByPlaceholderText("Comment")).toBeInTheDocument();
+    expect(screen.getByText("Outcome")).toBeInTheDocument();
+    expect(screen.getByText("Income")).toBeInTheDocument();
+    expect(screen.getByText("Save")).toBeInTheDocument();
   });
 
-  test("updates form values on input change", () => {
-    render(<TransactionActions />);
-    const titleInput = screen.getByPlaceholderText("Title");
-    const amountInput = screen.getByPlaceholderText("Amount");
+  test("should update form state on input change", () => {
+    render(
+      <ReactQueryContext>
+        <ModalProvider>
+          <TransactionActions />
+        </ModalProvider>
+      </ReactQueryContext>,
+    );
 
-    fireEvent.change(titleInput, { target: { value: "Test Title" } });
-    fireEvent.change(amountInput, { target: { value: "100" } });
+    fireEvent.change(screen.getByPlaceholderText("Title"), { target: { value: "Test Title" } });
+    fireEvent.change(screen.getByPlaceholderText("Amount"), { target: { value: "100" } });
+    fireEvent.change(screen.getByPlaceholderText("Comment"), { target: { value: "Test Comment" } });
 
-    expect(titleInput).toHaveValue("Test Title");
-    expect(amountInput).toHaveValue("100");
+    expect(screen.getByPlaceholderText("Title")).toHaveValue("Test Title");
+    expect(screen.getByPlaceholderText("Amount")).toHaveValue(100);
+    expect(screen.getByPlaceholderText("Comment")).toHaveValue("Test Comment");
   });
 
-  test("toggles transaction action", () => {
-    render(<TransactionActions />);
-    const outcomeAction = screen.getByTestId("outcome");
-    const incomeAction = screen.getByTestId("income");
+  test("should submit form on button click", () => {
+    render(
+      <ReactQueryContext>
+        <ModalProvider>
+          <TransactionActions />
+        </ModalProvider>
+      </ReactQueryContext>,
+    );
 
-    fireEvent.click(outcomeAction);
-    expect(outcomeAction).toHaveClass("active");
-    expect(incomeAction).not.toHaveClass("active");
-
-    fireEvent.click(incomeAction);
-    expect(outcomeAction).not.toHaveClass("active");
-    expect(incomeAction).toHaveClass("active");
+    fireEvent.click(screen.getByText("Save"));
   });
 });

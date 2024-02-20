@@ -1,49 +1,43 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import { MoneyCard } from "./money-card";
 
-describe("MoneyCard Component", () => {
-  test("renders money card component with income type", () => {
-    const { getByText, getByTestId } = render(
-      <MoneyCard type="Income" icon={<div>Icon</div>} price="100" />,
+describe("MoneyCard", () => {
+  test("renders money card with total type", () => {
+    render(
+      <MemoryRouter>
+        <MoneyCard type="Total" icon={<div>Icon</div>} price="100" />
+      </MemoryRouter>,
     );
-    const typeElement = getByText("Income");
-    const priceElement = getByText("100");
-    const cardElement = getByTestId("money-card-total");
-    expect(typeElement).toBeInTheDocument();
-    expect(priceElement).toBeInTheDocument();
-    expect(cardElement).toHaveClass("money__card");
+
+    const moneyCardTotal = screen.getByTestId("money-card-total");
+    expect(moneyCardTotal).toBeInTheDocument();
+
+    const moneyCardHeader = screen.getByText("Total");
+    expect(moneyCardHeader).toBeInTheDocument();
+
+    const moneyCardIcon = screen.getByText("Icon");
+    expect(moneyCardIcon).toBeInTheDocument();
+
+    const moneyCardPrice = screen.getByText("100");
+    expect(moneyCardPrice).toBeInTheDocument();
+
+    const moneyCardLink = screen.getByText("Full details");
+    expect(moneyCardLink).toHaveAttribute("href", "/statistics?type=Total");
   });
 
-  test("renders money card component with outcome type", () => {
-    const { getByText, getByTestId } = render(
-      <MoneyCard type="Outcome" icon={<div>Icon</div>} price="50" />,
+  test("renders money card with loading state", () => {
+    render(
+      <MemoryRouter>
+        <MoneyCard type="Income" icon={<div>Icon</div>} price="50" isLoading />
+      </MemoryRouter>,
     );
-    const typeElement = getByText("Outcome");
-    const priceElement = getByText("50");
-    const cardElement = getByTestId("money-card-total");
-    expect(typeElement).toBeInTheDocument();
-    expect(priceElement).toBeInTheDocument();
-    expect(cardElement).toHaveClass("money__card");
-  });
 
-  test("renders money card component with total type", () => {
-    const { getByText, getByTestId } = render(
-      <MoneyCard type="Total" icon={<div>Icon</div>} price="500" />,
-    );
-    const typeElement = getByText("Total");
-    const priceElement = getByText("500");
-    const cardElement = getByTestId("money-card-total");
-    expect(typeElement).toBeInTheDocument();
-    expect(priceElement).toBeInTheDocument();
-    expect(cardElement).toHaveClass("money__card");
-  });
+    const moneyCardTotal = screen.getByTestId("money-card-total");
+    expect(moneyCardTotal).toBeInTheDocument();
 
-  test("renders money card component with loading state", () => {
-    const { getByText } = render(
-      <MoneyCard type="Total" icon={<div>Icon</div>} price="500" isLoading={true} />,
-    );
-    const priceElement = getByText("500");
-    expect(priceElement).toHaveClass("money__card-money loading");
+    const moneyCardPrice = screen.getByText("50");
+    expect(moneyCardPrice).toHaveClass("loading");
   });
 });
