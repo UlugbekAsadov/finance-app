@@ -27,3 +27,28 @@
   color: var(--base-text);
   text-align: end;
 }
+
+@media (max-width: 425px) {
+  .transaction__inline {
+    grid-template-columns: repeat(1, 1fr);
+    row-gap: 1rem;
+    padding: 1rem 1.5rem;
+  }
+
+  .transaction__title {
+    grid-column: span 1;
+  }
+
+  .transaction__price {
+    text-align: start;
+    font-size: 1.4rem;
+  }
+
+  .transaction__title {
+    font-size: 1.2rem;
+  }
+
+  .transaction__date {
+    color: var(--placeholder);
+  }
+}

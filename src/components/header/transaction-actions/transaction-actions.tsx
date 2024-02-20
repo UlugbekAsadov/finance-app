@@ -47,6 +47,7 @@ export const TransactionActions = () => {
           value={transactionForm.price}
           name="price"
           placeholder="Amount"
+          type="number"
         />
         <div className="transaction__actions-form-actions">
           <div
