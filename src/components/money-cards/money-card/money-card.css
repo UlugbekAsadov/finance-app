@@ -1,0 +1,36 @@
+.money__card {
+  border-radius: 0.4rem;
+  padding: 1.5rem 2rem;
+  background-color: var(--thirdly-gray);
+}
+
+.money__card.total {
+  background-color: var(--green-dark);
+}
+
+.money__card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.money__card-type {
+  font-size: 1rem;
+  color: var(--base-text);
+}
+
+.money__card-money {
+  font-size: 2rem;
+  color: var(--title);
+  margin-top: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .money__card {
+    padding: 1rem 1.5rem;
+  }
+
+  .money__card-money {
+    font-size: 1.7rem;
+  }
+}

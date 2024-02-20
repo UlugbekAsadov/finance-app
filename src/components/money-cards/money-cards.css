@@ -1,0 +1,25 @@
+.money__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1rem;
+  margin-top: -4rem;
+}
+
+@media (max-width: 768px) {
+  .money__cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .money__cards div:last-child {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 425px) {
+  .money__cards {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .money__cards div:last-child {
+    grid-column: span 1;
+  }
+}
