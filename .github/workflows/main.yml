@@ -24,5 +24,4 @@ jobs:
     - name: Run tests
       run: npm test -- --coverage
 
-    - name: Build React app
-      run: npm run build
+   
