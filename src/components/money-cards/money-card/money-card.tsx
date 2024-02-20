@@ -6,9 +6,10 @@ interface IProps {
   type: "Income" | "Outcome" | "Total";
   icon: ReactNode;
   price: string;
+  isLoading?: boolean;
 }
 
-export const MoneyCard = ({ type, icon, price }: IProps) => {
+export const MoneyCard = ({ type, icon, price, isLoading }: IProps) => {
   const isTypeTotal = type === "Total";
 
   return (
@@ -17,7 +18,7 @@ export const MoneyCard = ({ type, icon, price }: IProps) => {
         <p className="money__card-type">{type}</p>
         {icon}
       </div>
-      <p className="money__card-money">{price} UZS</p>
+      <p className={`money__card-money  ${isLoading ? "loading" : ""}`}>{price}</p>
     </div>
   );
 };
