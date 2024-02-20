@@ -5,3 +5,9 @@ export interface ITransactionForm {
   price: string;
   action: ETransactionActions;
 }
+
+export interface ITransactionStatus {
+  income: number;
+  outcome: number;
+  total: number;
+}

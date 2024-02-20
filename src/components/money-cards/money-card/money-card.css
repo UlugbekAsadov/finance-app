@@ -22,7 +22,45 @@
 .money__card-money {
   font-size: 2rem;
   color: var(--title);
+  position: relative;
   margin-top: 0.8rem;
+}
+
+.total .money__card-money.loading::after {
+  background: linear-gradient(to right, var(--green-dark), var(--green-light), var(--green-dark));
+  background-size: 300%;
+}
+
+.money__card-money.loading::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  z-index: 4;
+  max-width: 30rem;
+  width: 100%;
+  height: 100%;
+  background-size: 300%;
+  border-radius: 0.4rem;
+  background: linear-gradient(
+    to right,
+    var(--primary-gray),
+    var(--thirdly-gray),
+    var(--primary-gray)
+  );
+  background-size: 300%;
+  animation: priceLoader infinite 3s;
+}
+
+@keyframes priceLoader {
+  0% {
+    background-position: left;
+  }
+  50% {
+    background-position: right;
+  }
+  100% {
+    background-position: left;
+  }
 }
 
 @media (max-width: 768px) {
