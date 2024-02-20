@@ -1,27 +1,32 @@
 {
   "data": {
-    "income": 0,
-    "outcome": 0,
-    "total": 122220
+    "income": 20000000,
+    "outcome": 1000000
   },
   "transactions": [
     {
-      "title": "Buy TV",
-      "price": 12000,
-      "timestamp": 1708419643728,
-      "type": "INCOME"
+      "id": "3f45",
+      "title": "Salary",
+      "price": "5000000",
+      "action": "INCOME",
+      "comment": "January Salary",
+      "timestamp": 1708445870801
     },
     {
-      "title": "Sell Phone",
-      "price": 12000,
-      "timestamp": 1708419643728,
-      "type": "OUTCOME"
+      "id": "a407",
+      "title": "Bought Macbook",
+      "price": "1000000",
+      "action": "OUTCOME",
+      "comment": "I bought macbook from macstore",
+      "timestamp": 1708446032566
     },
     {
-      "title": "Loan",
-      "price": 12000,
-      "timestamp": 1708419643728,
-      "type": "OUTCOME"
+      "id": "d356",
+      "title": "Salary",
+      "price": "15000000",
+      "action": "INCOME",
+      "comment": "Salary Feb",
+      "timestamp": 1708446184462
     }
   ]
 }

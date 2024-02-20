@@ -9,6 +9,10 @@
   transition: 0.4s;
 }
 
+.input__wrapper.error {
+  border-color: var(--red);
+}
+
 .input__wrapper:focus-within {
   border: 1px solid var(--green-light);
 }

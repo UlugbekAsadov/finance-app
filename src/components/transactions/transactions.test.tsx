@@ -16,15 +16,17 @@ describe("Transactions Component", () => {
         id: 1,
         title: "Salary",
         timestamp: 1708419643728,
-        price: 2000,
-        type: ETransactionActions.Income,
+        price: "2000",
+        comment: "comment",
+        action: ETransactionActions.Income,
       },
       {
         id: 2,
         title: "Groceries",
         timestamp: 1708419643728,
-        price: 50,
-        type: ETransactionActions.Outcome,
+        price: "50",
+        comment: "comment",
+        action: ETransactionActions.Outcome,
       },
     ];
 

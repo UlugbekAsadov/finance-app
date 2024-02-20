@@ -31,11 +31,15 @@ export const ModalProvider = ({ children }: IProviderProps) => {
 
   const value: IModalContext = useMemo(() => ({ openModal, closeModal }), []);
 
-  const renderModals = modals.map(({ id, component }) => (
-    <Modal id={id} key={id}>
-      {component}
-    </Modal>
-  ));
+  const renderModals = useMemo(
+    () =>
+      modals.map(({ id, component }) => (
+        <Modal id={id} key={id}>
+          {component}
+        </Modal>
+      )),
+    [modals],
+  );
 
   return (
     <ModalContext.Provider value={value}>

@@ -5,6 +5,7 @@ interface TApiResponse<T> {
   error: string | null;
   isLoading: boolean;
   postData: (body: any) => Promise<void>;
+  putData: (body: any) => Promise<void>;
 }
 
 interface ICache {
@@ -42,11 +43,16 @@ export function useApi<T>(key: string, url: string): TApiResponse<T> {
     await fetchData("POST", body);
   };
 
+  const putData = async (body: any) => {
+    setIsLoading(true);
+    await fetchData("PUT", body);
+  };
+
   useEffect(() => {
     fetchData(defaultMethod);
   }, [url]);
 
-  return { data: cache[key], error, isLoading, postData };
+  return { data: cache[key], error, isLoading, postData, putData };
 }
 
 export const getFetchedData = (key: string) => cache[key];

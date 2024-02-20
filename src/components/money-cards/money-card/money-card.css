@@ -51,6 +51,26 @@
   animation: priceLoader infinite 3s;
 }
 
+.money__cards-footer {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+}
+
+.money__card-link {
+  color: var(--placeholder);
+  transition: 0.3s;
+  opacity: 0%;
+}
+
+.money__card-link:hover {
+  color: var(--base-text);
+}
+
+.money__card:hover .money__card-link {
+  opacity: 100%;
+}
+
 @keyframes priceLoader {
   0% {
     background-position: left;

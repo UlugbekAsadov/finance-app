@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { Link } from "react-router-dom";
 
 import "./money-card.css";
 
@@ -18,7 +19,12 @@ export const MoneyCard = ({ type, icon, price, isLoading }: IProps) => {
         <p className="money__card-type">{type}</p>
         {icon}
       </div>
-      <p className={`money__card-money  ${isLoading ? "loading" : ""}`}>{price}</p>
+      <div className="money__cards-footer">
+        <p className={`money__card-money  ${isLoading ? "loading" : ""}`}>{price}</p>
+        <Link className="money__card-link" to={`/statistics?type=${type}`}>
+          Full details
+        </Link>
+      </div>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 .transaction__inline {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   padding: 1.5rem 2rem;
   background-color: var(--secondary-gray);
   border-radius: 0.3rem;
@@ -26,6 +26,10 @@
 .transaction__date {
   color: var(--base-text);
   text-align: end;
+}
+
+.transaction__comment {
+  color: var(--base-text);
 }
 
 @media (max-width: 425px) {

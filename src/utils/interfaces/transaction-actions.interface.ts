@@ -4,18 +4,19 @@ export interface ITransactionForm {
   title: string;
   price: string;
   action: ETransactionActions;
+  comment: string;
 }
 
-export interface ITransactionResponse {
+export interface ITransactionFormRequest extends ITransactionForm {
+  timestamp: number;
+}
+
+export interface ITransactionResponse extends ITransactionForm {
   id: number;
-  title: string;
-  price: number;
-  type: ETransactionActions;
   timestamp: number;
 }
 
 export interface ITransactionStatus {
-  income: number;
-  outcome: number;
-  total: number;
+  income: string;
+  outcome: string;
 }

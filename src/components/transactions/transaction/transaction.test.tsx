@@ -10,8 +10,9 @@ describe("Transaction Component", () => {
       id: 1,
       title: "Salary",
       timestamp: 1708419643728,
-      price: 2000,
-      type: ETransactionActions.Income,
+      price: "2000",
+      action: ETransactionActions.Income,
+      comment: "comment",
     };
 
     const { getByText } = render(<Transaction {...transaction} />);
@@ -30,8 +31,9 @@ describe("Transaction Component", () => {
       id: 2,
       title: "Groceries",
       timestamp: 1708419643728,
-      price: 50,
-      type: ETransactionActions.Outcome,
+      price: "50",
+      action: ETransactionActions.Outcome,
+      comment: "comment",
     };
 
     const { getByText } = render(<Transaction {...transaction} />);
