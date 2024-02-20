@@ -4,5 +4,24 @@
     "outcome": 0,
     "total": 122220
   },
-  "transactions": []
+  "transactions": [
+    {
+      "title": "Buy TV",
+      "price": 12000,
+      "timestamp": 1708419643728,
+      "type": "INCOME"
+    },
+    {
+      "title": "Sell Phone",
+      "price": 12000,
+      "timestamp": 1708419643728,
+      "type": "OUTCOME"
+    },
+    {
+      "title": "Loan",
+      "price": 12000,
+      "timestamp": 1708419643728,
+      "type": "OUTCOME"
+    }
+  ]
 }

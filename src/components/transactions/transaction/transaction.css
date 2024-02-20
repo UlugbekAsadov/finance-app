@@ -1,0 +1,29 @@
+.transaction__inline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 1.5rem 2rem;
+  background-color: var(--secondary-gray);
+  border-radius: 0.3rem;
+}
+
+.transaction__title {
+  grid-column: span 2;
+  color: var(--base-text);
+}
+
+.transaction__price {
+  text-align: end;
+}
+
+.transaction__price.income {
+  color: var(--green);
+}
+
+.transaction__price.outcome {
+  color: var(--red);
+}
+
+.transaction__date {
+  color: var(--base-text);
+  text-align: end;
+}

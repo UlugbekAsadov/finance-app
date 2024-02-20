@@ -8,7 +8,7 @@ import { useApi } from "../../hooks/useApi/useApi";
 import { ITransactionStatus } from "../../utils/interfaces/transaction-actions.interface";
 import { currencyFormatter } from "../../utils/helper/currency-formatter";
 export const MoneyCards = () => {
-  const { data, isLoading } = useApi<ITransactionStatus>("/data");
+  const { data, isLoading } = useApi<ITransactionStatus>("data", "/data");
 
   return (
     <div className="container">

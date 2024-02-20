@@ -7,8 +7,13 @@ interface TApiResponse<T> {
   postData: (body: any) => Promise<void>;
 }
 
-export function useApi<T>(url: string): TApiResponse<T> {
-  const [data, setData] = useState<T | null>(null);
+interface ICache {
+  [key: string]: any;
+}
+
+const cache: ICache = {};
+
+export function useApi<T>(key: string, url: string): TApiResponse<T> {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const defaultMethod = "GET";
@@ -24,8 +29,7 @@ export function useApi<T>(url: string): TApiResponse<T> {
 
       const response = await fetch(`${process.env.REACT_APP_API}${url}`, options);
 
-      const jsonData: T = await response.json();
-      setData(jsonData);
+      cache[key] = await response.json();
     } catch (error: any) {
       setError(error.message);
     } finally {
@@ -42,5 +46,7 @@ export function useApi<T>(url: string): TApiResponse<T> {
     fetchData(defaultMethod);
   }, [url]);
 
-  return { data, error, isLoading, postData };
+  return { data: cache[key], error, isLoading, postData };
 }
+
+export const getFetchedData = (key: string) => cache[key];
