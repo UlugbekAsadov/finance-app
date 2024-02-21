@@ -216,6 +216,7 @@ export const TransactionActions = ({ transaction, refetch }: IProps) => {
         )}
         <Button
           isLoading={isIsMutating}
+          disabled={isIsMutating}
           size="lg"
           type="submit"
           className="transaction__actions-form-button"
@@ -225,6 +226,7 @@ export const TransactionActions = ({ transaction, refetch }: IProps) => {
         {isEdit && (
           <Button
             isLoading={isDeleting}
+            disabled={isDeleting}
             size="lg"
             variant="danger"
             type="button"
