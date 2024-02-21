@@ -2,6 +2,7 @@ import fetcher from "../../utils/helper/fetcher";
 import {
   ITransactionData,
   ITransactionFormRequest,
+  ITransactionResponse,
 } from "../../utils/interfaces/transaction-actions.interface";
 
 export const updateTransactionsDataFn = (transactionData: Partial<ITransactionData>) =>
@@ -19,6 +20,16 @@ export const createTransaction = (transaction: ITransactionFormRequest) =>
   fetcher(`/transactions`, {
     method: "POST",
     body: JSON.stringify(transaction),
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(res);
+  });
+
+export const deleteTransactionFn = (transactionId: string) =>
+  fetcher(`/transactions/${transactionId}`, {
+    method: "DELETE",
   }).then((res) => {
     if (res.ok) {
       return res.json();

@@ -7,16 +7,16 @@ import { ITransactionResponse } from "../../utils/interfaces/transaction-actions
 import { getAllTransactionQueryFn } from "../../react-query/queries/transactions.query";
 
 function App() {
-  const { data: transactions } = useQuery<ITransactionResponse[]>({
+  const { data: transactions, refetch } = useQuery<ITransactionResponse[]>({
     queryKey: ["all-transactions"],
     queryFn: () => getAllTransactionQueryFn(),
   });
 
   return (
     <div>
-      <Header />
+      <Header refetch={refetch} />
       <MoneyCards />
-      <Transactions title="All Transactions" transactions={transactions || []} />
+      <Transactions refetch={refetch} title="All Transactions" transactions={transactions || []} />
     </div>
   );
 }

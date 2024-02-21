@@ -1,6 +1,7 @@
 import { ETransactionActions } from "../enums/transaction-actions.enum";
 
 export interface ITransactionForm {
+  id?: string;
   title: string;
   price: string;
   action: ETransactionActions;

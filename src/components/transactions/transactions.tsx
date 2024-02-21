@@ -2,18 +2,20 @@ import { ITransactionResponse } from "../../utils/interfaces/transaction-actions
 import { Transaction } from "./transaction/transaction";
 
 import "./transactions.css";
+import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
 
 interface IProps {
   transactions: ITransactionResponse[];
   title: string;
+  refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<any, Error>>;
 }
-export const Transactions = ({ transactions, title }: IProps) => {
+export const Transactions = ({ transactions, title, refetch }: IProps) => {
   if (!transactions?.length) {
     return null;
   }
 
   const transactionsList = transactions.map((transaction) => (
-    <Transaction {...transaction} key={transaction.id} />
+    <Transaction transaction={transaction} key={transaction.id} refetch={refetch} />
   ));
 
   return (

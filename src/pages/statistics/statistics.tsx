@@ -23,7 +23,7 @@ export const Statistics = () => {
     queryKey: ["transactions-data"],
     queryFn: () => getTransactionsDataQueryFn(),
   });
-  const { data: transactionsList } = useQuery({
+  const { data: transactionsList, refetch } = useQuery({
     queryKey: ["all-transaction", transactionType],
     queryFn: () => getAllTransactionQueryFn(transactionType as TMoneyCardType),
   });
@@ -39,7 +39,7 @@ export const Statistics = () => {
 
   return (
     <div>
-      <Header hideNewTransaction />
+      <Header refetch={refetch} />
       <div className="container statistics__page-money-card">
         <MoneyCard
           type={transactionType as TMoneyCardType}
@@ -53,6 +53,7 @@ export const Statistics = () => {
           transactions={transactionsList || []}
         />
         <Transactions
+          refetch={refetch}
           title={`${transactionType as string} transactions`}
           transactions={transactionsList}
         />

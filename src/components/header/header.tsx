@@ -5,15 +5,16 @@ import { useModalContext } from "../../context/modal-context/modal.context";
 import { TransactionActions } from "./transaction-actions/transaction-actions";
 
 import "./header.css";
+import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
 
 interface IProps {
-  hideNewTransaction?: boolean;
+  refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<any, Error>>;
 }
-export const Header = ({ hideNewTransaction }: IProps) => {
+export const Header = ({ refetch }: IProps) => {
   const { openModal } = useModalContext();
 
   const openNewTransactionModal = () => {
-    openModal({ id: "new-transaction", component: <TransactionActions /> });
+    openModal({ id: "new-transaction", component: <TransactionActions refetch={refetch} /> });
   };
 
   return (
@@ -23,11 +24,9 @@ export const Header = ({ hideNewTransaction }: IProps) => {
           <Logo />
           <span>Finance</span>
         </Link>
-        {hideNewTransaction ? null : (
-          <Button onClick={openNewTransactionModal} size="md" className="header__new-transaction">
-            New transaction
-          </Button>
-        )}
+        <Button onClick={openNewTransactionModal} size="md" className="header__new-transaction">
+          New transaction
+        </Button>
       </div>
     </header>
   );

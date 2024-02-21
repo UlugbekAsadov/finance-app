@@ -12,9 +12,10 @@ import { ETransactionActions } from "../../../utils/enums/transaction-actions.en
 import { Button } from "../../button/button";
 
 import "./transaction-actions.css";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { QueryObserverResult, RefetchOptions, useMutation, useQuery } from "@tanstack/react-query";
 import {
   createTransaction,
+  deleteTransactionFn,
   updateTransactionsDataFn,
 } from "../../../react-query/mutations/transaction.mutation";
 import { useModalContext } from "../../../context/modal-context/modal.context";
@@ -26,8 +27,15 @@ const initialTransactionForm: ITransactionForm = {
   comment: "",
 };
 
-export const TransactionActions = () => {
-  const [transactionForm, setTransactionForm] = useState<ITransactionForm>(initialTransactionForm);
+interface IProps {
+  transaction?: ITransactionForm;
+  refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<any, Error>>;
+}
+
+export const TransactionActions = ({ transaction, refetch }: IProps) => {
+  const [transactionForm, setTransactionForm] = useState<ITransactionForm>(
+    transaction || initialTransactionForm,
+  );
   const [errors, setErrors] = useState<ITransactionForm>(initialTransactionForm);
   const createTransactionMutation = useMutation({
     mutationFn: (data: ITransactionFormRequest) => createTransaction(data),
@@ -36,10 +44,12 @@ export const TransactionActions = () => {
     mutationFn: (data: ITransactionData) => updateTransactionsDataFn(data),
   });
   const transactionDataQuery = useQuery<ITransactionData>({ queryKey: ["transactions-data"] });
-  const transactions = useQuery<ITransactionResponse[]>({
-    queryKey: ["all-transactions"],
+
+  const deleteTransactionMutation = useMutation({
+    mutationFn: () => deleteTransactionFn(transaction?.id as string),
   });
   const { closeModal } = useModalContext();
+  const isEdit = !!transaction;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement> | ETransactionActions) => {
     if (typeof e === "string") {
@@ -76,7 +86,7 @@ export const TransactionActions = () => {
     await updateTransactionData.mutateAsync(transactionData);
     await createTransactionMutation.mutateAsync(body);
     await transactionDataQuery.refetch();
-    await transactions.refetch();
+    await refetch();
     closeModal({ id: "new-transaction" });
   };
 
@@ -86,13 +96,33 @@ export const TransactionActions = () => {
     let isValid = true;
 
     fieldsToValidate.forEach((field) => {
-      if (!transactionForm[field as keyof ITransactionForm].length) {
+      if (!transactionForm[field as keyof ITransactionForm]?.length) {
         setErrors((prevState) => ({ ...prevState, [field]: "error" }));
         isValid = false;
       }
     });
 
     return isValid;
+  };
+
+  const deleteTransaction = async () => {
+    if (!transaction) return;
+
+    const transactionDataBody: ITransactionData = {
+      ...transactionDataQuery.data,
+    } as ITransactionData;
+
+    if (transaction?.action === ETransactionActions.Income) {
+      transactionDataBody.income -= parseInt(transaction.price);
+    } else {
+      transactionDataBody.outcome -= parseInt(transaction.price);
+    }
+
+    await updateTransactionData.mutateAsync(transactionDataBody);
+    await deleteTransactionMutation.mutateAsync();
+    await transactionDataQuery.refetch();
+    await refetch();
+    closeModal({ id: "transaction-edit" });
   };
 
   const isIncomeSelected = transactionForm.action === ETransactionActions.Income;
@@ -144,6 +174,11 @@ export const TransactionActions = () => {
         <Button size="lg" type="submit" className="transaction__actions-form-button">
           Save
         </Button>
+        {isEdit && (
+          <Button size="lg" variant="danger" type="button" onClick={deleteTransaction}>
+            Delete
+          </Button>
+        )}
       </form>
     </div>
   );
