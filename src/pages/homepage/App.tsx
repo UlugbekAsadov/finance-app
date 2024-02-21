@@ -16,7 +16,7 @@ function App() {
     <div>
       <Header />
       <MoneyCards />
-      <Transactions transactions={transactions || []} />
+      <Transactions title="All Transactions" transactions={transactions || []} />
     </div>
   );
 }

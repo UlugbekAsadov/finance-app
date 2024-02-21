@@ -1,5 +1,11 @@
 .transactions__list {
-  margin-top: 4rem;
   display: grid;
   row-gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.transactions__title {
+  color: var(--white);
+  margin-top: 4rem;
+  text-transform: capitalize;
 }

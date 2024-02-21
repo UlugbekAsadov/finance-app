@@ -5,7 +5,11 @@ import { useModalContext } from "../../context/modal-context/modal.context";
 import { TransactionActions } from "./transaction-actions/transaction-actions";
 
 import "./header.css";
-export const Header = () => {
+
+interface IProps {
+  hideNewTransaction?: boolean;
+}
+export const Header = ({ hideNewTransaction }: IProps) => {
   const { openModal } = useModalContext();
 
   const openNewTransactionModal = () => {
@@ -19,9 +23,11 @@ export const Header = () => {
           <Logo />
           <span>Finance</span>
         </Link>
-        <Button onClick={openNewTransactionModal} size="md" className="header__new-transaction">
-          New transaction
-        </Button>
+        {hideNewTransaction ? null : (
+          <Button onClick={openNewTransactionModal} size="md" className="header__new-transaction">
+            New transaction
+          </Button>
+        )}
       </div>
     </header>
   );

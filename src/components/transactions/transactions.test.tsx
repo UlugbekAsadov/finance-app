@@ -6,7 +6,7 @@ import { ETransactionActions } from "../../utils/enums/transaction-actions.enum"
 
 describe("Transactions component", () => {
   it("renders nothing when transactions array is empty", () => {
-    const { container } = render(<Transactions transactions={[]} />);
+    const { container } = render(<Transactions title="test title" transactions={[]} />);
     expect(container.firstChild).toBeNull();
   });
 
@@ -30,7 +30,9 @@ describe("Transactions component", () => {
       },
     ];
 
-    const { getByText } = render(<Transactions transactions={transactionsData} />);
+    const { getByText } = render(
+      <Transactions title="test title" transactions={transactionsData} />,
+    );
 
     expect(getByText("Transaction 1")).toBeInTheDocument();
     expect(getByText("Transaction 2")).toBeInTheDocument();

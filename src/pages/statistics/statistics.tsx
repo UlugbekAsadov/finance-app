@@ -39,7 +39,7 @@ export const Statistics = () => {
 
   return (
     <div>
-      <Header />
+      <Header hideNewTransaction />
       <div className="container statistics__page-money-card">
         <MoneyCard
           type={transactionType as TMoneyCardType}
@@ -52,7 +52,10 @@ export const Statistics = () => {
           transactionType={transactionType as TMoneyCardType}
           transactions={transactionsList || []}
         />
-        <Transactions transactions={transactionsList} />
+        <Transactions
+          title={`${transactionType as string} transactions`}
+          transactions={transactionsList}
+        />
       </div>
     </div>
   );
