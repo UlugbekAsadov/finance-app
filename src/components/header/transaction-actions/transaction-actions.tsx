@@ -69,15 +69,16 @@ export const TransactionActions = ({ transaction, refetch }: IProps) => {
   };
 
   const handleSubmit = async (e: FormEvent) => {
-    setIsMutating(true);
     e.preventDefault();
     const validate = validateForm();
 
     if (!validate) return;
+    setIsMutating(true);
 
     if (isEdit) {
       return editTransaction();
     }
+
     const body: ITransactionFormRequest = {
       ...transactionForm,
       timestamp: new Date().getTime(),

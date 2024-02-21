@@ -1,16 +1,32 @@
 {
   "data": {
-    "income": 22,
-    "outcome": 0
+    "income": 1400,
+    "outcome": 700
   },
   "transactions": [
     {
       "id": "a945",
-      "title": "test",
-      "price": "22",
+      "title": "Salary",
+      "price": "1200",
       "action": "INCOME",
-      "comment": "213",
+      "comment": "First Salary",
       "timestamp": 1708511979587
+    },
+    {
+      "id": "877e",
+      "title": "Loan",
+      "price": "200",
+      "action": "INCOME",
+      "comment": "Loan returned",
+      "timestamp": 1708512700958
+    },
+    {
+      "id": "e70e",
+      "title": "Macbook Purchase",
+      "price": "700",
+      "action": "OUTCOME",
+      "comment": "New Macbook air",
+      "timestamp": 1708512732964
     }
   ]
 }
