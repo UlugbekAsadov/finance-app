@@ -34,6 +34,7 @@ interface IProps {
 }
 
 export const TransactionActions = ({ transaction, refetch }: IProps) => {
+  const [isIsMutating, setIsMutating] = useState<boolean>(false);
   const [transactionForm, setTransactionForm] = useState<ITransactionForm>(
     transaction || initialTransactionForm,
   );
@@ -67,6 +68,7 @@ export const TransactionActions = ({ transaction, refetch }: IProps) => {
   };
 
   const handleSubmit = async (e: FormEvent) => {
+    setIsMutating(true);
     e.preventDefault();
     const validate = validateForm();
 
@@ -96,6 +98,7 @@ export const TransactionActions = ({ transaction, refetch }: IProps) => {
     await transactionDataQuery.refetch();
     await refetch();
     closeModal({ id: "new-transaction" });
+    setIsMutating(false);
   };
 
   const editTransaction = async () => {
@@ -122,6 +125,7 @@ export const TransactionActions = ({ transaction, refetch }: IProps) => {
     await editTransactionMutation.mutateAsync(body);
     await refetch();
     await transactionDataQuery.refetch();
+    setIsMutating(false);
     closeModal({ id: "transaction-edit" });
   };
   const validateForm = (): boolean => {
@@ -140,6 +144,7 @@ export const TransactionActions = ({ transaction, refetch }: IProps) => {
   };
 
   const deleteTransaction = async () => {
+    setIsMutating(true);
     if (!transaction) return;
 
     const transactionDataBody: ITransactionData = {
@@ -156,6 +161,7 @@ export const TransactionActions = ({ transaction, refetch }: IProps) => {
     await deleteTransactionMutation.mutateAsync();
     await transactionDataQuery.refetch();
     await refetch();
+    setIsMutating(false);
     closeModal({ id: "transaction-edit" });
   };
 
@@ -207,7 +213,12 @@ export const TransactionActions = ({ transaction, refetch }: IProps) => {
             </div>
           </div>
         )}
-        <Button size="lg" type="submit" className="transaction__actions-form-button">
+        <Button
+          isLoading={isIsMutating}
+          size="lg"
+          type="submit"
+          className="transaction__actions-form-button"
+        >
           Save
         </Button>
         {isEdit && (

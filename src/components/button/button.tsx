@@ -6,11 +6,12 @@ interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "solid" | "outline" | "disabled" | "danger";
   size?: "sm" | "md" | "lg";
   children?: ReactNode;
+  isLoading?: boolean;
 }
 
 export const Button = forwardRef<HTMLButtonElement, IProps>(
-  ({ className = "", variant = "solid", children, size = "sm", ...props }, ref) => {
-    const buttonClass = `button ${variant} ${size} ${className}`;
+  ({ isLoading, className = "", variant = "solid", children, size = "sm", ...props }, ref) => {
+    const buttonClass = `button ${variant} ${size} ${className} ${isLoading ? "disabled" : ""}`;
 
     return (
       <button ref={ref} className={buttonClass} {...props}>
