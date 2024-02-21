@@ -1,24 +1,7 @@
 {
   "data": {
-    "income": 1231231,
-    "outcome": 3123
+    "income": 0,
+    "outcome": 0
   },
-  "transactions": [
-    {
-      "id": "acdf",
-      "title": "outome12",
-      "price": "1231231",
-      "action": "INCOME",
-      "comment": "23123",
-      "timestamp": 1708501723046
-    },
-    {
-      "id": "543d",
-      "title": "outomce12",
-      "price": "3123",
-      "action": "OUTCOME",
-      "comment": "123",
-      "timestamp": 1708501727612
-    }
-  ]
+  "transactions": []
 }

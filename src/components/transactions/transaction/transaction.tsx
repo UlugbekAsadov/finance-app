@@ -19,7 +19,6 @@ export const Transaction = ({ transaction, refetch }: IProps) => {
   const { fullDate } = formatTimestamp(timestamp);
 
   const openEditModal = () => {
-    const transactionForm = { ...transaction };
     openModal({
       id: "transaction-edit",
       component: <TransactionActions transaction={transaction} refetch={refetch} />,

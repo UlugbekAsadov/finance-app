@@ -36,3 +36,14 @@ export const deleteTransactionFn = (transactionId: string) =>
     }
     return Promise.reject(res);
   });
+
+export const updateTransactionFn = (transaction: ITransactionResponse) =>
+  fetcher(`/transactions/${transaction.id}`, {
+    method: "PUT",
+    body: JSON.stringify(transaction),
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(res);
+  });

@@ -16,6 +16,7 @@ import { QueryObserverResult, RefetchOptions, useMutation, useQuery } from "@tan
 import {
   createTransaction,
   deleteTransactionFn,
+  updateTransactionFn,
   updateTransactionsDataFn,
 } from "../../../react-query/mutations/transaction.mutation";
 import { useModalContext } from "../../../context/modal-context/modal.context";
@@ -28,7 +29,7 @@ const initialTransactionForm: ITransactionForm = {
 };
 
 interface IProps {
-  transaction?: ITransactionForm;
+  transaction?: ITransactionResponse;
   refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<any, Error>>;
 }
 
@@ -40,13 +41,17 @@ export const TransactionActions = ({ transaction, refetch }: IProps) => {
   const createTransactionMutation = useMutation({
     mutationFn: (data: ITransactionFormRequest) => createTransaction(data),
   });
-  const updateTransactionData = useMutation({
+  const updateTransactionDataMutation = useMutation({
     mutationFn: (data: ITransactionData) => updateTransactionsDataFn(data),
   });
   const transactionDataQuery = useQuery<ITransactionData>({ queryKey: ["transactions-data"] });
 
   const deleteTransactionMutation = useMutation({
     mutationFn: () => deleteTransactionFn(transaction?.id as string),
+  });
+
+  const editTransactionMutation = useMutation({
+    mutationFn: (transaction: ITransactionResponse) => updateTransactionFn(transaction),
   });
   const { closeModal } = useModalContext();
   const isEdit = !!transaction;
@@ -67,6 +72,9 @@ export const TransactionActions = ({ transaction, refetch }: IProps) => {
 
     if (!validate) return;
 
+    if (isEdit) {
+      return editTransaction();
+    }
     const body: ITransactionFormRequest = {
       ...transactionForm,
       timestamp: new Date().getTime(),
@@ -83,13 +91,39 @@ export const TransactionActions = ({ transaction, refetch }: IProps) => {
       transactionData.income += parseInt(transactionForm.price);
     }
 
-    await updateTransactionData.mutateAsync(transactionData);
+    await updateTransactionDataMutation.mutateAsync(transactionData);
     await createTransactionMutation.mutateAsync(body);
     await transactionDataQuery.refetch();
     await refetch();
     closeModal({ id: "new-transaction" });
   };
 
+  const editTransaction = async () => {
+    if (!transaction) return;
+
+    const body: ITransactionResponse = {
+      ...transactionForm,
+      timestamp: transaction.timestamp,
+      id: transaction.id,
+    };
+
+    const transactionData = { ...transactionDataQuery.data } as ITransactionData;
+    const price = parseInt(transaction.price);
+    const modifiedPrice = parseInt(transactionForm.price);
+    const marginPrice = modifiedPrice - price;
+
+    if (transaction.action === ETransactionActions.Income) {
+      transactionData.income += marginPrice;
+    } else {
+      transactionData.outcome += marginPrice;
+    }
+
+    await updateTransactionDataMutation.mutateAsync(transactionData);
+    await editTransactionMutation.mutateAsync(body);
+    await refetch();
+    await transactionDataQuery.refetch();
+    closeModal({ id: "transaction-edit" });
+  };
   const validateForm = (): boolean => {
     const fieldsToValidate = ["title", "price", "comment"];
 
@@ -118,7 +152,7 @@ export const TransactionActions = ({ transaction, refetch }: IProps) => {
       transactionDataBody.outcome -= parseInt(transaction.price);
     }
 
-    await updateTransactionData.mutateAsync(transactionDataBody);
+    await updateTransactionDataMutation.mutateAsync(transactionDataBody);
     await deleteTransactionMutation.mutateAsync();
     await transactionDataQuery.refetch();
     await refetch();
@@ -153,24 +187,26 @@ export const TransactionActions = ({ transaction, refetch }: IProps) => {
           placeholder="Comment"
           className={errors.comment}
         />
-        <div className="transaction__actions-form-actions">
-          <div
-            className={`transaction__actions-form-action outcome ${isIncomeSelected && "active"}`}
-            onClick={() => handleChange(ETransactionActions.Income)}
-            data-testid="outcome"
-          >
-            <ChevronUpRoundedIcon />
-            <p>Income</p>
+        {!isEdit && (
+          <div className="transaction__actions-form-actions">
+            <div
+              className={`transaction__actions-form-action outcome ${isIncomeSelected && "active"}`}
+              onClick={() => handleChange(ETransactionActions.Income)}
+              data-testid="outcome"
+            >
+              <ChevronUpRoundedIcon />
+              <p>Income</p>
+            </div>
+            <div
+              className={`transaction__actions-form-action income ${!isIncomeSelected && "active"}`}
+              onClick={() => handleChange(ETransactionActions.Outcome)}
+              data-testid="income"
+            >
+              <ChevronDownRoundedIcon />
+              <p>Outcome</p>
+            </div>
           </div>
-          <div
-            className={`transaction__actions-form-action income ${!isIncomeSelected && "active"}`}
-            onClick={() => handleChange(ETransactionActions.Outcome)}
-            data-testid="income"
-          >
-            <ChevronDownRoundedIcon />
-            <p>Outcome</p>
-          </div>
-        </div>
+        )}
         <Button size="lg" type="submit" className="transaction__actions-form-button">
           Save
         </Button>
