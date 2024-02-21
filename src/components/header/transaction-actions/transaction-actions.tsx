@@ -35,6 +35,7 @@ interface IProps {
 
 export const TransactionActions = ({ transaction, refetch }: IProps) => {
   const [isIsMutating, setIsMutating] = useState<boolean>(false);
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [transactionForm, setTransactionForm] = useState<ITransactionForm>(
     transaction || initialTransactionForm,
   );
@@ -144,7 +145,7 @@ export const TransactionActions = ({ transaction, refetch }: IProps) => {
   };
 
   const deleteTransaction = async () => {
-    setIsMutating(true);
+    setIsDeleting(true);
     if (!transaction) return;
 
     const transactionDataBody: ITransactionData = {
@@ -161,7 +162,7 @@ export const TransactionActions = ({ transaction, refetch }: IProps) => {
     await deleteTransactionMutation.mutateAsync();
     await transactionDataQuery.refetch();
     await refetch();
-    setIsMutating(false);
+    setIsDeleting(false);
     closeModal({ id: "transaction-edit" });
   };
 
@@ -222,7 +223,13 @@ export const TransactionActions = ({ transaction, refetch }: IProps) => {
           Save
         </Button>
         {isEdit && (
-          <Button size="lg" variant="danger" type="button" onClick={deleteTransaction}>
+          <Button
+            isLoading={isDeleting}
+            size="lg"
+            variant="danger"
+            type="button"
+            onClick={deleteTransaction}
+          >
             Delete
           </Button>
         )}
