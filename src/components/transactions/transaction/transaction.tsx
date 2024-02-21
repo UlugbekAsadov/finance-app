@@ -29,8 +29,7 @@ export const Transaction = ({ transaction, refetch }: IProps) => {
       <p className="transaction__title">{title}</p>
       <p className="transaction__comment">{comment}</p>
       <p className={`transaction__price ${isIncome ? "income" : "outcome"}`}>
-        {isIncome ? "+" : "-"}
-        {currencyFormatter(parseInt(price))}
+        {isIncome ? "+" : "-"} {currencyFormatter(parseInt(price))}
       </p>
       <p className="transaction__date">{fullDate}</p>
     </div>

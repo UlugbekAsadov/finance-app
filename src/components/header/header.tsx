@@ -24,7 +24,12 @@ export const Header = ({ refetch }: IProps) => {
           <Logo />
           <span>Finance</span>
         </Link>
-        <Button onClick={openNewTransactionModal} size="md" className="header__new-transaction">
+        <Button
+          data-testid="new-transaction-button"
+          onClick={openNewTransactionModal}
+          size="md"
+          className="header__new-transaction"
+        >
           New transaction
         </Button>
       </div>

@@ -10,8 +10,6 @@ import { ReactComponent as ChevronUpRoundedIcon } from "../../../assets/icons/ch
 import { ReactComponent as ChevronDownRoundedIcon } from "../../../assets/icons/chevron-down-rounded.svg";
 import { ETransactionActions } from "../../../utils/enums/transaction-actions.enum";
 import { Button } from "../../button/button";
-
-import "./transaction-actions.css";
 import { QueryObserverResult, RefetchOptions, useMutation, useQuery } from "@tanstack/react-query";
 import {
   createTransaction,
@@ -20,6 +18,8 @@ import {
   updateTransactionsDataFn,
 } from "../../../react-query/mutations/transaction.mutation";
 import { useModalContext } from "../../../context/modal-context/modal.context";
+
+import "./transaction-actions.css";
 
 const initialTransactionForm: ITransactionForm = {
   title: "",
