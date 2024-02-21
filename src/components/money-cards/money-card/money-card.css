@@ -28,6 +28,7 @@
   color: var(--title);
   position: relative;
   margin-top: 0.8rem;
+  flex-grow: 1;
 }
 
 .total .money__card-money.loading::after {
