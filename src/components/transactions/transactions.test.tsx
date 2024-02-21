@@ -11,7 +11,6 @@ describe("Transactions component", () => {
   });
 
   it("renders transactions correctly", () => {
-    // Mock transactions data
     const transactionsData: ITransactionResponse[] = [
       {
         id: "1",
