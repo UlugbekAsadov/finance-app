@@ -22,7 +22,7 @@ import { useModalContext } from "../../../context/modal-context/modal.context";
 const initialTransactionForm: ITransactionForm = {
   title: "",
   price: "",
-  action: ETransactionActions.Outcome,
+  action: ETransactionActions.Income,
   comment: "",
 };
 
@@ -125,20 +125,20 @@ export const TransactionActions = () => {
         />
         <div className="transaction__actions-form-actions">
           <div
-            className={`transaction__actions-form-action outcome ${!isIncomeSelected && "active"}`}
-            onClick={() => handleChange(ETransactionActions.Outcome)}
+            className={`transaction__actions-form-action outcome ${isIncomeSelected && "active"}`}
+            onClick={() => handleChange(ETransactionActions.Income)}
             data-testid="outcome"
           >
             <ChevronUpRoundedIcon />
-            <p>Outcome</p>
+            <p>Income</p>
           </div>
           <div
-            className={`transaction__actions-form-action income ${isIncomeSelected && "active"}`}
-            onClick={() => handleChange(ETransactionActions.Income)}
+            className={`transaction__actions-form-action income ${!isIncomeSelected && "active"}`}
+            onClick={() => handleChange(ETransactionActions.Outcome)}
             data-testid="income"
           >
             <ChevronDownRoundedIcon />
-            <p>Income</p>
+            <p>Outcome</p>
           </div>
         </div>
         <Button size="lg" type="submit" className="transaction__actions-form-button">

@@ -2,19 +2,16 @@ import { ITransactionResponse } from "../../utils/interfaces/transaction-actions
 import { Transaction } from "./transaction/transaction";
 
 import "./transactions.css";
-import { useQuery } from "@tanstack/react-query";
-import { getAllTransactionQueryFn } from "../../react-query/queries/transactions.query";
-export const Transactions = () => {
-  const { data } = useQuery<ITransactionResponse[]>({
-    queryKey: ["all-transactions"],
-    queryFn: () => getAllTransactionQueryFn(),
-  });
 
-  if (!data?.length) {
+interface IProps {
+  transactions: ITransactionResponse[];
+}
+export const Transactions = ({ transactions }: IProps) => {
+  if (!transactions?.length) {
     return null;
   }
 
-  const transactionsList = data.map((transaction) => (
+  const transactionsList = transactions.map((transaction) => (
     <Transaction {...transaction} key={transaction.id} />
   ));
 

@@ -1,16 +1,80 @@
 {
   "data": {
-    "income": 0,
-    "outcome": 123123
+    "income": 40246,
+    "outcome": 20246
   },
   "transactions": [
     {
-      "id": "1442",
-      "title": "title",
-      "price": "123123",
+      "id": "7aea",
+      "title": "Income",
+      "price": "1000",
+      "action": "INCOME",
+      "comment": "1231",
+      "timestamp": 1705291951758
+    },
+    {
+      "id": "daf7",
+      "title": "outcome",
+      "price": "2000",
+      "action": "INCOME",
+      "comment": "qwe",
+      "timestamp": 1706392980523
+    },
+    {
+      "id": "7aeq",
+      "title": "Income",
+      "price": "50",
+      "action": "INCOME",
+      "comment": "1231",
+      "timestamp": 1707493931758
+    },
+    {
+      "id": "daf1",
+      "title": "outcome",
+      "price": "20000",
+      "action": "INCOME",
+      "comment": "qwe",
+      "timestamp": 1708494920523
+    },
+    {
+      "id": "ad79",
+      "title": "outomce",
+      "price": "20000",
       "action": "OUTCOME",
-      "comment": "wqe",
-      "timestamp": 1708452248190
+      "comment": "123",
+      "timestamp": 1708494995373
+    },
+    {
+      "id": "73ed",
+      "title": "qe",
+      "price": "123",
+      "action": "INCOME",
+      "comment": "123",
+      "timestamp": 1708496227188
+    },
+    {
+      "id": "3039",
+      "title": "123",
+      "price": "123",
+      "action": "OUTCOME",
+      "comment": "123",
+      "timestamp": 1708496262510
+    },
+    {
+      "id": "750f",
+      "title": "qwe",
+      "price": "123",
+      "action": "INCOME",
+      "comment": "123",
+      "timestamp": 1708496280028
+    },
+    {
+      "id": "a0d0",
+      "title": "123",
+      "price": "123",
+      "action": "OUTCOME",
+      "comment": "123",
+      "timestamp": 1708496286328
     }
   ]
 }

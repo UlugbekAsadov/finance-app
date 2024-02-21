@@ -1,10 +1,30 @@
-export function formatTimestamp(timestamp: number): string {
+export function formatTimestamp(timestamp: number): { monthName: string; fullDate: string } {
   const date = new Date(timestamp);
 
-  const day = date.getDate().toString().padStart(2, "0");
-  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const month = monthNames[date.getMonth()];
+
+  const day = String(date.getDate()).padStart(2, "0");
+  const formattedMonth = String(date.getMonth() + 1).padStart(2, "0"); // Month is zero-based
   const year = date.getFullYear();
 
-  // Format the date as dd/mm/yyyy
-  return `${day}/${month}/${year}`;
+  const fullDate = `${day}/${formattedMonth}/${year}`;
+
+  return {
+    monthName: month,
+    fullDate: fullDate,
+  };
 }

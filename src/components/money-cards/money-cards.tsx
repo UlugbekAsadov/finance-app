@@ -20,21 +20,21 @@ export const MoneyCards = () => {
     <div className="container">
       <div className="money__cards">
         <MoneyCard
-          type="Outcome"
+          type="income"
           icon={<ChevronUpRoundedIcon />}
-          price={currencyFormatter(outcome)}
+          price={income}
           isLoading={isLoading}
         />
         <MoneyCard
-          type="Income"
+          type="outcome"
           icon={<ChevronDownRoundedIcon />}
-          price={currencyFormatter(income)}
+          price={outcome}
           isLoading={isLoading}
         />
         <MoneyCard
-          type="Total"
+          type="total"
           icon={<CurrencyIcon />}
-          price={currencyFormatter(income - outcome)}
+          price={income - outcome}
           isLoading={isLoading}
         />
       </div>

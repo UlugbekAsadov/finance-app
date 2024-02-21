@@ -14,6 +14,7 @@ export const Transaction = ({
 }: ITransactionResponse) => {
   const isIncome = action === ETransactionActions.Income;
 
+  const { fullDate } = formatTimestamp(timestamp);
   return (
     <div className="transaction__inline" key={id}>
       <p className="transaction__title">{title}</p>
@@ -22,7 +23,7 @@ export const Transaction = ({
         {isIncome ? "+" : "-"}
         {currencyFormatter(parseInt(price))}
       </p>
-      <p className="transaction__date">{formatTimestamp(timestamp)}</p>
+      <p className="transaction__date">{fullDate}</p>
     </div>
   );
 };

@@ -17,3 +17,13 @@
   font-size: 1.5rem;
   font-weight: 600;
 }
+
+@media (max-width: 425px) {
+  .header__logo > span {
+    display: none;
+  }
+
+  .header__new-transaction {
+    font-size: 0.8rem;
+  }
+}
