@@ -7,6 +7,8 @@ export const getTransactionsDataQueryFn = () =>
     .then((res) => res);
 
 export const getAllTransactionQueryFn = (filter?: TMoneyCardType) =>
-  fetcher(`/transactions?_sort=-timestamp${filter ? `&action=${filter?.toUpperCase()}` : ""}`)
+  fetcher(
+    `/transactions?_sort=timestamp&_order=desc${filter ? `&action=${filter?.toUpperCase()}` : ""}`,
+  )
     .then((res) => res.json())
     .then((res) => res);
